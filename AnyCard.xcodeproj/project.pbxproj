@@ -14,6 +14,7 @@
 		849406F01AC39E2200AFE544 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 849406EF1AC39E2200AFE544 /* Images.xcassets */; };
 		849406F31AC39E2200AFE544 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 849406F11AC39E2200AFE544 /* LaunchScreen.xib */; };
 		849406FF1AC39E2200AFE544 /* AnyCardTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 849406FE1AC39E2200AFE544 /* AnyCardTests.m */; };
+		849407091AC3CC8900AFE544 /* 120px-Shuffling.png in Resources */ = {isa = PBXBuildFile; fileRef = 849407081AC3CC8900AFE544 /* 120px-Shuffling.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,6 +41,7 @@
 		849406F81AC39E2200AFE544 /* AnyCardTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AnyCardTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		849406FD1AC39E2200AFE544 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		849406FE1AC39E2200AFE544 /* AnyCardTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AnyCardTests.m; sourceTree = "<group>"; };
+		849407081AC3CC8900AFE544 /* 120px-Shuffling.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "120px-Shuffling.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -96,6 +98,7 @@
 		849406E21AC39E2200AFE544 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				849407081AC3CC8900AFE544 /* 120px-Shuffling.png */,
 				849406E31AC39E2200AFE544 /* Info.plist */,
 				849406E41AC39E2200AFE544 /* main.m */,
 			);
@@ -199,6 +202,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				849407091AC3CC8900AFE544 /* 120px-Shuffling.png in Resources */,
 				849406EE1AC39E2200AFE544 /* Main.storyboard in Resources */,
 				849406F31AC39E2200AFE544 /* LaunchScreen.xib in Resources */,
 				849406F01AC39E2200AFE544 /* Images.xcassets in Resources */,
@@ -414,6 +418,7 @@
 				849407041AC39E2200AFE544 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		849407051AC39E2200AFE544 /* Build configuration list for PBXNativeTarget "AnyCardTests" */ = {
 			isa = XCConfigurationList;
@@ -422,6 +427,7 @@
 				849407071AC39E2200AFE544 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
