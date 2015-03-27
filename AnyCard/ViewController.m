@@ -25,6 +25,11 @@
     m_linesCount = [[self.lineCountLabel text] integerValue];
 }
 
+- (void) textViewDidBeginEditing:(UITextView *)textView
+{
+    [textView setText:@""];
+}
+
 - (void) textViewDidChange:(UITextView *)textView
 {
     [textView resignFirstResponder];
@@ -37,8 +42,7 @@
     NSString* str = [textView text];
     self.inputStrings[self.currentDocIndex] = str;
     
-    m_linesCount = [[str componentsSeparatedByString:@"\n"] count];
-    [self.lineCountLabel setText:[NSString stringWithFormat:@"%lu",(unsigned long)m_linesCount]];
+    [self updateUI];
 }
 
 -(BOOL)textFieldShouldEndEditing:(UITextField *)textField
@@ -94,18 +98,98 @@
 - (IBAction)resetTextViewButtonTapped:(id)sender
 {
     self.inputStrings[self.currentDocIndex] = @"";
-    [self.inputTextView setText:@""];
     [self.outputTextView setText:@""];
+    [self updateUI];
 }
+
 - (IBAction)segmentValueChanged:(UISegmentedControl *)sender
 {
     [self setCurrentDocIndex:[sender selectedSegmentIndex]];
+    [self.outputTextView setText:@""];
+    [self updateUI];
+}
+
+- (IBAction)saveButtonTapped:(UIButton *)sender
+{
+    [self saveFile];
+}
+
+- (IBAction)loadButtonTapped:(UIButton *)sender
+{
+    [self loadFile];
+}
+
+- (void) updateUI
+{
     NSString* currentInputText = self.inputStrings[self.currentDocIndex];
     [self.inputTextView setText:currentInputText];
-    [self.outputTextView setText:@""];
     
     m_linesCount = [[currentInputText componentsSeparatedByString:@"\n"] count];
     [self.lineCountLabel setText:[NSString stringWithFormat:@"%lu",m_linesCount]];
+}
+
+- (BOOL) saveFile
+{
+    NSFileManager* fileMan = [NSFileManager defaultManager];
+    NSError* error = nil;
+    NSURL* docDirectoryURL = [fileMan URLForDirectory:NSDocumentDirectory inDomain:NSUserDomainMask appropriateForURL:nil create:YES error:&error];
+    if (error)
+    {
+        NSLog(@"Error accessing document directory: %@",error);
+        error = nil;
+        return NO;
+    }
+    
+    NSString* saveFilename = [NSString stringWithFormat:@"%lu.txt",self.currentDocIndex];
+    NSURL* saveFileURL = [NSURL URLWithString:saveFilename relativeToURL:docDirectoryURL];
+    
+    NSString* outputStr = self.inputStrings[self.currentDocIndex];
+    
+    [outputStr writeToURL:saveFileURL atomically:YES encoding:NSUTF8StringEncoding error:&error];
+    if (error)
+    {
+        NSLog(@"Error writing to file %@: %@", saveFileURL, error);
+        error = nil;
+        return NO;
+    }
+    return YES;
+}
+
+- (BOOL) loadFile
+{
+    NSFileManager* fileMan = [NSFileManager defaultManager];
+    NSError* error = nil;
+    NSURL* docDirectoryURL = [fileMan URLForDirectory:NSDocumentDirectory inDomain:NSUserDomainMask appropriateForURL:nil create:YES error:&error];
+    if (error)
+    {
+        NSLog(@"Error accessing document directory: %@",error);
+        error = nil;
+        return NO;
+    }
+    
+    NSString* saveFilename = [NSString stringWithFormat:@"%lu.txt",self.currentDocIndex];
+    NSURL* saveFileURL = [NSURL URLWithString:saveFilename relativeToURL:docDirectoryURL];
+
+    NSString* str = [NSString stringWithContentsOfURL:saveFileURL encoding:NSUTF8StringEncoding error:&error];
+    if (error)
+    {
+        NSLog(@"Error reading from file %@: %@", saveFileURL, error);
+        error = nil;
+        return NO;
+    }
+    
+    if (str)
+    {
+        self.inputStrings[self.currentDocIndex] = str;
+        [self.inputTextView setText:str];
+    }
+    else
+    {
+        NSLog(@"Error: Contents of file %@ empty.",saveFileURL);
+        return NO;
+    }
+    
+    return YES;
 }
 
 - (void)didReceiveMemoryWarning

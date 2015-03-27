@@ -15,6 +15,13 @@
     NSInteger m_linesCount;
 }
 
+- (void) updateUI;
+- (BOOL) saveFile;
+- (BOOL) loadFile;
+
+@property (weak, nonatomic) IBOutlet UIButton *saveButton;
+@property (weak, nonatomic) IBOutlet UIButton *loadButton;
+
 @property (readwrite, atomic) NSMutableArray* inputStrings;
 @property (readwrite, atomic) NSString* outputString;
 @property (readwrite, atomic) NSInteger currentDocIndex;
